@@ -7,6 +7,20 @@ emitter
 Example Usage
 =============
 
+This project is an implementation of the
+`EventEmitter <https://nodejs.org/api/events.html#events_class_eventemitter>`_
+interface and closely follows the behaviour described by the documentation for
+the `events <https://nodejs.org/api/events.html>`_ module.
+
+.. code-block:: python
+
+    from asyncdef.emitter import Emitter
+
+    emitter = Emitter()
+    emitter.on('my_event', print)
+    emitter.emit('my_event', True, False, None)
+
+
 Testing
 =======
 
