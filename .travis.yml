@@ -1,0 +1,14 @@
+language: python
+sudo: false
+python:
+  - "3.5"
+  - "3.5-dev"
+  - "nightly"
+install:
+    - pip install --upgrade pip setuptools
+    - pip install -e ".[testing]"
+script:
+    - if [[ ! "$(python --version 2>&1)" =~ Python\ (3\.6.*) ]]; then pep8 asyncdef/emitter//; fi
+    - pep257 --add-select=D203 --add-ignore=D211 asyncdef/emitter/
+    - pyflakes asyncdef/emitter/
+    - py.test --cov-report term-missing --cov-config .coveragerc --cov asyncdef/emitter/ --pyargs asyncdef/emitter

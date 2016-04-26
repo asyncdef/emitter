@@ -1,0 +1,6 @@
+include README.rst
+include LICENSE
+recursive-include asyncdef *
+recursive-exclude asyncdef *.pyc
+recursive-exclude asyncdef *.pyd
+recursive-exclude asyncdef *.pyo
