@@ -151,7 +151,7 @@ class Emitter:
         )
         for offset, _listener in enumerate(raw_listeners):
 
-            if listener is _listener:
+            if listener == _listener:
 
                 break
 

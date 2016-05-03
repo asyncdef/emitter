@@ -144,6 +144,50 @@ def test_remove_removes_listeners():
     assert listener not in list(instance.listeners(event))
 
 
+def test_remove_removes_method():
+    """Check that remove removes object methods."""
+    instance = emitter.Emitter()
+    event = 'an_event'
+
+    class Listener:
+
+        """An object with a listener method."""
+
+        def listen(self):
+            """Do nothing."""
+            return None
+
+    listener = Listener()
+    instance.on(event, listener.listen)
+    assert instance.listeners_count(event) == 1
+    assert listener.listen in list(instance.listeners(event))
+    instance.remove(event, listener.listen)
+    assert instance.listeners_count(event) == 0
+    assert listener.listen not in list(instance.listeners(event))
+
+
+def test_remove_removes_classmethod():
+    """Check that remove removes object class methods."""
+    instance = emitter.Emitter()
+    event = 'an_event'
+
+    class Listener:
+
+        """An object with a listener method."""
+
+        @classmethod
+        def listen(cls):
+            """Do nothing."""
+            return None
+
+    instance.on(event, Listener.listen)
+    assert instance.listeners_count(event) == 1
+    assert Listener.listen in list(instance.listeners(event))
+    instance.remove(event, Listener.listen)
+    assert instance.listeners_count(event) == 0
+    assert Listener.listen not in list(instance.listeners(event))
+
+
 def test_remove_allows_missing():
     """Check if remove works when there are no listeners."""
     instance = emitter.Emitter()
